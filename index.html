@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="O teu armário digital: organiza peças, cria looks e planeia a semana.">
+  <title>OUTFIT BRAIN — O teu armário digital</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="#" data-go="dashboard"><span class="brand-mark">O.</span><span>OUTFIT <b>BRAIN</b><small>O TEU ARMÁRIO DIGITAL</small></span></a>
+    <p class="menu-label">MENU PRINCIPAL</p>
+    <nav class="side-nav">
+      <button class="nav-item active" data-page="dashboard"><span>⌂</span> Visão geral</button>
+      <button class="nav-item" data-page="wardrobe"><span>▦</span> O meu armário</button>
+      <button class="nav-item" data-page="outfits"><span>✳</span> Os meus looks</button>
+      <button class="nav-item" data-page="planner"><span>▣</span> Planear outfits</button>
+      <button class="nav-item" data-page="favorites"><span>♡</span> Favoritos</button>
+      <button class="nav-item" data-page="insights"><span>◷</span> Estatísticas</button>
+      <button class="nav-item" data-page="shopping"><span>＋</span> Lista de compras</button>
+      <button class="nav-item" data-page="settings"><span>⚙</span> Dados e sincronização</button>
+    </nav>
+    <div class="sidebar-note"><span class="note-star">✳</span><p>O teu estilo.<br><strong>As tuas regras.</strong></p><small>Veste-te para ti.</small></div>
+    <div class="sidebar-footer">FEITO PARA O TEU DIA A DIA ✦</div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div><p class="eyebrow">O TEU ESPAÇO PESSOAL</p><h1 id="pageName">O teu armário, com ideias.</h1><p class="today" id="todayLabel"></p></div>
+      <button class="primary-button" id="openAdd"><span>＋</span> Adicionar peça</button>
+    </header>
+
+    <section class="page active" id="dashboard">
+      <div class="welcome-panel">
+        <div class="welcome-copy"><span class="pill">O TEU ESTILO, ORGANIZADO</span><h2>Menos tempo a escolher.<br><em>Mais tempo a viver.</em></h2><p>Organiza a tua roupa, combina peças e prepara os teus próximos looks num só lugar.</p><button class="dark-button" data-go="wardrobe">Explorar o meu armário <span>↗</span></button></div>
+        <div class="welcome-art" aria-hidden="true"><div class="art-sun"></div><div class="art-card art-card-back">YOUR<br>STYLE</div><div class="art-card art-card-front"><span>DAILY EDIT</span><div class="art-shirt">♧</div><strong>SIMPLY<br>YOURSELF.</strong></div><span class="art-sparkle">✳</span></div>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><span class="stat-icon">▦</span><p>Peças no armário</p><strong id="statItems">0</strong><small>O teu guarda-roupa</small></article>
+        <article class="stat-card"><span class="stat-icon">✳</span><p>Looks guardados</p><strong id="statOutfits">0</strong><small>Combinações criadas</small></article>
+        <article class="stat-card"><span class="stat-icon">♡</span><p>Looks favoritos</p><strong id="statFavorites">0</strong><small>Os teus preferidos</small></article>
+        <article class="stat-card"><span class="stat-icon">◷</span><p>Peças disponíveis</p><strong id="statAvailable">0</strong><small>Prontas a vestir</small></article>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">RECÉM-ADICIONADAS</p><h2>As últimas peças</h2></div><button class="text-button" data-go="wardrobe">Ver tudo ↗</button></div>
+      <div class="clothes-grid" id="recentItems"></div>
+      <div class="empty-state compact-empty" id="recentEmpty"><span>✳</span><h3>O teu armário começa aqui</h3><p>Adiciona a tua primeira peça para começares a organizar o teu estilo.</p><button class="primary-button" data-add>＋ Adicionar primeira peça</button></div>
+      <div class="section-heading"><div><p class="eyebrow">IDEIAS PARA HOJE</p><h2>O que vestir?</h2></div></div>
+      <div class="weather-panel"><div><span class="eyebrow">SUGESTÃO METEOROLÓGICA</span><h3 id="weatherTitle">Descobre o tempo na tua localização</h3><p id="weatherText">Permite o acesso à localização para obter a previsão e sugestões de roupa.</p></div><button class="secondary-button" id="getWeather">Consultar meteorologia</button></div>
+    </section>
+
+    <section class="page" id="wardrobe">
+      <div class="section-heading page-heading"><div><p class="eyebrow">TUDO NO SEU LUGAR</p><h2>O meu armário</h2><p class="section-description">Pesquisa, filtra e mantém as tuas peças atualizadas.</p></div></div>
+      <div class="toolbar">
+        <label class="search-box"><span>⌕</span><input id="searchItems" type="search" placeholder="Pesquisar roupa..."></label>
+        <select id="filterCategory" aria-label="Filtrar por categoria"><option value="all">Todas as categorias</option><option>Tops</option><option>Calças</option><option>Saias</option><option>Vestidos</option><option>Casacos</option><option>Calçado</option><option>Acessórios</option><option>Outros</option></select>
+        <select id="filterColor" aria-label="Filtrar por cor"><option value="all">Todas as cores</option><option>Preto</option><option>Branco</option><option>Bege</option><option>Castanho</option><option>Cinzento</option><option>Azul</option><option>Verde</option><option>Vermelho</option><option>Rosa</option><option>Amarelo</option><option>Multicolor</option><option>Sem indicação</option></select>
+        <select id="filterStatus" aria-label="Filtrar por estado"><option value="all">Todos os estados</option><option value="available">Disponível</option><option value="wash">Para lavar</option><option value="borrowed">Emprestada</option></select>
+        <select id="sortItems" aria-label="Ordenar peças"><option value="newest">Mais recentes</option><option value="oldest">Mais antigas</option><option value="name">Nome A–Z</option><option value="mostWorn">Mais usadas</option></select>
+      </div>
+      <div class="clothes-grid" id="wardrobeGrid"></div>
+      <div class="empty-state hidden" id="wardrobeEmpty"><span>▦</span><h3>Não encontrámos peças</h3><p>Adiciona roupa ou experimenta outro filtro.</p><button class="primary-button" data-add>＋ Adicionar peça</button></div>
+    </section>
+
+    <section class="page" id="outfits">
+      <div class="section-heading page-heading"><div><p class="eyebrow">COMBINAÇÕES COM PERSONALIDADE</p><h2>Os meus looks</h2><p class="section-description">Cria combinações, troca peças individualmente e guarda as tuas favoritas.</p></div><button class="primary-button" id="generateOutfit">✳ Gerar combinação</button></div>
+      <div class="builder-panel">
+        <div class="builder-header"><div><p class="eyebrow">CRIA A TUA COMBINAÇÃO</p><h3>O teu próximo outfit</h3></div><span class="counter"><b id="selectedCount">0</b> peças selecionadas</span></div>
+        <div class="selected-grid" id="selectedGrid"></div><p class="selected-empty" id="selectedEmpty">Seleciona as peças que queres combinar na lista abaixo.</p>
+        <div class="save-look-row"><input id="outfitName" type="text" maxlength="50" placeholder="Dá um nome ao teu look (ex.: Casual de domingo)"><button class="primary-button" id="saveOutfit">Guardar look</button><button class="secondary-button" id="clearOutfit">Limpar</button></div>
+        <div class="toolbar builder-toolbar"><label class="search-box"><span>⌕</span><input id="searchBuilder" type="search" placeholder="Pesquisar peças..."></label><select id="builderCategory" aria-label="Filtrar peças para o look"><option value="all">Todas as categorias</option><option>Tops</option><option>Calças</option><option>Saias</option><option>Vestidos</option><option>Casacos</option><option>Calçado</option><option>Acessórios</option><option>Outros</option></select></div>
+        <div class="clothes-grid" id="builderGrid"></div><div class="empty-state hidden" id="builderEmpty"><span>✳</span><h3>Precisas de algumas peças</h3><p>Adiciona roupa ao teu armário para poderes criar looks.</p><button class="primary-button" data-add>＋ Adicionar roupa</button></div>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">A TUA COLEÇÃO</p><h2>Looks guardados</h2></div></div><div class="outfits-grid" id="outfitsGrid"></div>
+      <div class="empty-state compact-empty" id="outfitsEmpty"><span>♡</span><h3>Ainda não guardaste looks</h3><p>Seleciona peças e guarda a tua primeira combinação.</p></div>
+    </section>
+
+    <section class="page" id="planner">
+      <div class="section-heading page-heading"><div><p class="eyebrow">PREPARA-TE COM ANTECEDÊNCIA</p><h2>Planear outfits</h2><p class="section-description">Organiza a semana e decide o que vestir com antecedência.</p></div></div>
+      <div class="planner-panel"><label>Data<input type="date" id="planDate"></label><label>Look<select id="planOutfit"><option value="">Escolhe um look guardado</option></select></label><button class="primary-button" id="addPlan">＋ Adicionar ao plano</button></div>
+      <div class="section-heading"><div><p class="eyebrow">VISTA SEMANAL</p><h2>Os próximos sete dias</h2></div><button class="secondary-button" id="thisWeek">Esta semana</button></div><div class="week-grid" id="weekGrid"></div>
+      <div class="section-heading"><div><p class="eyebrow">A TUA AGENDA</p><h2>Próximos looks</h2></div></div><div class="plans-list" id="plannerList"></div><div class="empty-state" id="plannerEmpty"><span>▣</span><h3>A tua agenda está livre</h3><p>Guarda primeiro um look e planeia quando o vais usar.</p></div>
+    </section>
+
+    <section class="page" id="favorites">
+      <div class="section-heading page-heading"><div><p class="eyebrow">OS TEUS ESSENCIAIS</p><h2>Looks favoritos</h2><p class="section-description">As combinações que queres encontrar num instante.</p></div></div><div class="outfits-grid" id="favoritesGrid"></div>
+      <div class="empty-state" id="favoritesEmpty"><span>♡</span><h3>Guarda os teus preferidos</h3><p>Marca os teus looks guardados como favoritos para os encontrares aqui.</p><button class="secondary-button" data-go="outfits">Ver os meus looks</button></div>
+    </section>
+
+    <section class="page" id="insights">
+      <div class="section-heading page-heading"><div><p class="eyebrow">CONHECE O TEU ESTILO</p><h2>Estatísticas do armário</h2><p class="section-description">Regista quando usas as peças para descobrires os teus essenciais.</p></div></div>
+      <div class="stats-grid insights-stats"><article class="stat-card"><p>Utilizações registadas</p><strong id="totalWears">0</strong><small>Em todas as peças</small></article><article class="stat-card"><p>Valor estimado do armário</p><strong id="wardrobeValue">0 €</strong><small>Soma dos preços de compra</small></article><article class="stat-card"><p>Peças nunca usadas</p><strong id="neverWorn">0</strong><small>Experimenta combiná-las</small></article></div>
+      <div class="insights-columns"><div class="surface-panel"><h3>Mais usadas</h3><div id="mostWornList" class="rank-list"></div></div><div class="surface-panel"><h3>Menos usadas</h3><div id="leastWornList" class="rank-list"></div></div></div>
+      <div class="surface-panel"><h3>Custo por utilização</h3><p class="muted">Introduz o preço de compra de uma peça e regista cada utilização para calcular este valor.</p><div id="costPerWearList" class="rank-list"></div></div>
+    </section>
+
+    <section class="page" id="shopping">
+      <div class="section-heading page-heading"><div><p class="eyebrow">COMPRA COM INTENÇÃO</p><h2>Lista de compras</h2><p class="section-description">Guarda ideias, acompanha preços e mantém-te dentro do orçamento.</p></div></div>
+      <div class="shopping-budget"><label>Orçamento (€)<input type="number" id="shoppingBudget" min="0" step="0.01" placeholder="Ex.: 100"></label><div><small>Total estimado</small><strong id="shoppingTotal">0,00 €</strong></div><div><small>Orçamento restante</small><strong id="budgetRemaining">—</strong></div></div>
+      <form class="shopping-form" id="shoppingForm"><label>O que queres comprar?<input id="shoppingName" maxlength="80" placeholder="Ex.: camisola branca" required></label><label>Preço estimado (€)<input id="shoppingPrice" type="number" min="0" step="0.01" placeholder="0,00"></label><button class="primary-button" type="submit">＋ Adicionar</button></form>
+      <div id="shoppingList" class="shopping-list"></div><div class="empty-state" id="shoppingEmpty"><span>＋</span><h3>A tua lista está vazia</h3><p>Adiciona as peças que queres procurar.</p></div>
+    </section>
+
+    <section class="page" id="settings">
+      <div class="section-heading page-heading"><div><p class="eyebrow">OS TEUS DADOS, CONTIGO</p><h2>Dados e sincronização</h2><p class="section-description">Faz cópias de segurança e prepara a aplicação para outros dispositivos.</p></div></div>
+      <div class="settings-grid">
+        <article class="surface-panel"><span class="settings-icon">↧</span><h3>Exportar cópia de segurança</h3><p>Descarrega um ficheiro JSON com as peças, looks, agenda, compras e orçamento.</p><button class="primary-button" id="exportData">Exportar os meus dados</button></article>
+        <article class="surface-panel"><span class="settings-icon">↥</span><h3>Restaurar cópia</h3><p>Importa um ficheiro JSON previamente exportado. Os dados atuais serão substituídos.</p><label class="secondary-button file-button">Escolher ficheiro<input id="importData" type="file" accept=".json,application/json"></label></article>
+        <article class="surface-panel"><span class="settings-icon">▣</span><h3>Instalar no telemóvel</h3><p>Quando estiver alojado num endereço HTTPS, abre o site no navegador do telemóvel e escolhe “Adicionar ao ecrã principal”.</p><button class="secondary-button" id="installApp" disabled>Instalação disponível no navegador compatível</button></article>
+        <article class="surface-panel"><span class="settings-icon">⇄</span><h3>Sincronização online</h3><p id="syncStatus">Neste momento, os dados estão guardados neste navegador. Para sincronizar computador e telemóvel, é necessário configurar uma base de dados online.</p><label>URL do projeto Supabase<input id="supabaseUrl" type="url" placeholder="https://....supabase.co"></label><label>Chave pública (anon/publishable)<input id="supabaseKey" type="password" placeholder="Chave pública do projeto"></label><label>ID da conta<input id="syncUserId" type="text" placeholder="Um identificador que uses nos teus dispositivos"></label><button class="primary-button" id="saveSyncConfig">Guardar configuração</button><p class="tiny-note">A configuração, por si só, não cria uma base de dados nem autenticação. Consulta o README incluído no projeto antes de ativar a sincronização. Nunca coloques uma chave secreta/service_role no navegador.</p></article>
+      </div>
+      <div class="surface-panel"><h3>Como os teus dados são guardados</h3><p>Sem sincronização configurada, os dados ficam no armazenamento local deste navegador. Exporta uma cópia regularmente e importa-a noutro dispositivo se precisares de transferir os teus dados manualmente.</p><p id="storageInfo" class="muted"></p></div>
+    </section>
+    <footer class="app-footer">OUTFIT BRAIN <span>✳</span> O TEU ESTILO, À TUA MANEIRA.</footer>
+  </main>
+</div>
+
+<nav class="mobile-nav"><button class="active" data-page="dashboard"><span>⌂</span><small>Início</small></button><button data-page="wardrobe"><span>▦</span><small>Armário</small></button><button data-page="outfits"><span>✳</span><small>Looks</small></button><button data-page="planner"><span>▣</span><small>Planear</small></button><button data-page="favorites"><span>♡</span><small>Favoritos</small></button></nav>
+
+<div class="modal-backdrop hidden" id="itemModal">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header"><div><p class="eyebrow">ADICIONA AO TEU ARMÁRIO</p><h2 id="modalTitle">Nova peça</h2></div><button class="close-button" id="closeModal" aria-label="Fechar">×</button></div>
+    <form id="itemForm">
+      <label class="upload-area" for="itemImage"><img id="uploadPreview" class="upload-preview hidden" alt="Pré-visualização da roupa"><span id="uploadIcon" class="upload-icon">＋</span><strong id="uploadText">Adicionar fotografia</strong><small>Tira uma fotografia ou escolhe uma da galeria</small><input type="file" id="itemImage" accept="image/*" capture="environment"></label>
+      <label>Nome da peça *<input id="itemName" type="text" maxlength="60" placeholder="Ex.: Camisola bege" required></label>
+      <div class="form-row"><label>Categoria *<select id="itemCategory" required><option value="">Escolher</option><option>Tops</option><option>Calças</option><option>Saias</option><option>Vestidos</option><option>Casacos</option><option>Calçado</option><option>Acessórios</option><option>Outros</option></select></label><label>Cor<select id="itemColor"><option value="Sem indicação">Escolher cor</option><option>Preto</option><option>Branco</option><option>Bege</option><option>Castanho</option><option>Cinzento</option><option>Azul</option><option>Verde</option><option>Vermelho</option><option>Rosa</option><option>Amarelo</option><option>Multicolor</option></select></label></div>
+      <div class="form-row"><label>Estação<select id="itemSeason"><option value="Todas">Todas as estações</option><option>Primavera</option><option>Verão</option><option>Outono</option><option>Inverno</option></select></label><label>Estado<select id="itemStatus"><option value="available">Disponível</option><option value="wash">Para lavar</option><option value="borrowed">Emprestada</option></select></label></div>
+      <div class="form-row"><label>Preço de compra (€)<input id="itemPrice" type="number" min="0" step="0.01" placeholder="Ex.: 24,99"></label><label>Utilizações anteriores<input id="itemWears" type="number" min="0" step="1" value="0"></label></div>
+      <label>Notas (opcional)<textarea id="itemNotes" rows="2" maxlength="250" placeholder="Ex.: confortável, para sair..."></textarea>
+      <div class="modal-actions"><button type="button" class="secondary-button" id="cancelModal">Cancelar</button><button type="submit" class="primary-button">Guardar peça</button></div>
+    </form>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>

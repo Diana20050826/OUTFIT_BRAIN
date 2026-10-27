@@ -1,0 +1,12 @@
+{
+  "name": "OUTFIT BRAIN — O teu armário digital",
+  "short_name": "OUTFIT BRAIN",
+  "description": "Organiza o teu armário, cria looks e planeia a semana.",
+  "lang": "pt-PT",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5ef",
+  "theme_color": "#f7f5ef",
+  "icons": []
+}
